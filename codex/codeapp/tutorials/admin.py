@@ -3,9 +3,7 @@ from django.contrib import admin
 # Register your models here.
 
 
-from codeapp.tutorials.models import *
-
-
+from .models import Subjects, Topics, TopicSection
 
 admin.site.register(Subjects)
 admin.site.register(Topics)

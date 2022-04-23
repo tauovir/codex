@@ -1,6 +1,7 @@
 venv/
 data/
 .idea/
-
-docker-compose101.yml
-docker-compose.yml
+__pycache__/
+.env*
+*.sql
+*.sh

@@ -1,24 +1,12 @@
-from django.db import models
-
 # Create your models here.
 from django.db import models
-
-# Create your models here.
-
-
-from django.db import models
-from django.conf import settings
-# from ckeditor_uploader.fields import RichTextUploadingField
 import datetime
-from datetime import datetime as dt
-from django.utils.translation import pgettext_lazy
 from django_ckeditor_5.fields import CKEditor5Field
 
 
 # ==========================Master Tables===================================
 
 class Subjects(models.Model):
-
     name = models.CharField(max_length=20, null=False)  # max_length required
     slug = models.SlugField(max_length=120, null=False, default='pppp')  # max_length required
     description = models.TextField(max_length=200, null=True)  # max_length required
@@ -32,20 +20,17 @@ class Subjects(models.Model):
     updated_at = models.DateField(auto_now_add=True)
 
     def __str__(self):
-
         return self.name
 
     class Meta:
-
         db_table = 'subject_tbl_dm'
         verbose_name = 'Subject'
         verbose_name_plural = 'Subjects'
 
 
 class Topics(models.Model):
-
     name = models.CharField(max_length=20, null=False)  # max_length required
-    slug = models.SlugField(max_length=120,null=False,default='pppp') # max_length required
+    slug = models.SlugField(max_length=120, null=False, default='pppp')  # max_length required
     # description = models.TextField(max_length=200, null=True)  # max_length required
     description = CKEditor5Field('Text', config_name='extends')
     subject = models.ForeignKey(Subjects, on_delete=models.CASCADE)
@@ -65,17 +50,16 @@ class Topics(models.Model):
         verbose_name_plural = 'Subjects Topics'
 
     def __str__(self):
-
         return self.name
 
 
 class TopicSection(models.Model):
-
     name = models.CharField(max_length=20, null=False)  # max_length required
     # description = CKEditor5Field('Text', config_name='extends')
-    description = CKEditor5Field('Text', config_name='extends',default=None)
+    description = CKEditor5Field('Text', config_name='extends', default=None)
     topic = models.ForeignKey(Topics, on_delete=models.CASCADE)
     topic_order = models.IntegerField(default=1)
+
     class status(models.IntegerChoices):
         active = 1
         inactive = 0
@@ -90,14 +74,5 @@ class TopicSection(models.Model):
 
     def __str__(self):
         return self.name
-
-
-    def __str__(self):
-
-        return self.name
-
-
-
-
 
 # ==========================Master Tables end===================================

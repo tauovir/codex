@@ -1,0 +1,41 @@
+#This denotes that we are using version 3 of Docker Compose, and Docker will provide the appropriate features.
+version: "3.9"
+
+#This section defines all the different containers we will create
+services:
+    db:
+      # If we don’t have a Dockerfile and want to run a service using a pre-built image, we specify the image location using the image clause. Compose will fork a container from that image.
+      image: postgres
+      ports:
+        - 5432:5432
+      volumes:
+        - ./data/db:/var/lib/postgresql/data
+#      environment:
+#        - POSTGRES_DB=codex_db
+#        - POSTGRES_USER=postgres
+#        - POSTGRES_PASSWORD=khan123
+      env_file:
+        - ./.env.dev.db
+
+  #This is the name of our Flask app service. Docker Compose will create containers with the name we provide.
+    web:
+     # restart: always
+#      restart: "on-failure"
+      #This specifies the location of our Dockerfile, and . represents the directory where the docker-compose.yml file is located
+      tty: true
+      build: .
+      #his is used to map the container’s ports to the host machine.
+      command: python manage.py runserver 0.0.0.0:8000
+      ports:
+        - "8000:8000"
+      volumes:
+        - .:/usr/src/codex
+      env_file:
+        - ./.env.dev
+#      environment:
+#        - POSTGRES_NAME=codex_db
+#        - POSTGRES_USER=postgres
+#        - POSTGRES_PASSWORD=khan123
+      depends_on:
+        - db
+

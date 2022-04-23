@@ -18,3 +18,9 @@ user:khan
 pass : khan102030
 email: taukir707@gmail.com
 
+# Migrate database in Docker system
+docker ps
+docker exec -t -i b8edf963a991 bash
+python manage.py makemigrations
+python manage.py migrate
+

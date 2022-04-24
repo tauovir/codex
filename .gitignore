@@ -1,7 +1,8 @@
 venv/
 data/
+postgres_data/
 .idea/
-__pycache__/
+*.pyc
 .env*
 *.sql
 *.sh

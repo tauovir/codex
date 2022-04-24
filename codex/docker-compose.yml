@@ -5,11 +5,11 @@ version: "3.9"
 services:
     db:
       # If we don’t have a Dockerfile and want to run a service using a pre-built image, we specify the image location using the image clause. Compose will fork a container from that image.
-      image: postgres
+      image: postgres:12.0-alpine
       ports:
         - 5432:5432
       volumes:
-        - ./data/db:/var/lib/postgresql/data
+        - ../postgres_data:/var/lib/postgresql/data
 #      environment:
 #        - POSTGRES_DB=codex_db
 #        - POSTGRES_USER=postgres

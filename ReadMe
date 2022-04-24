@@ -15,7 +15,7 @@ python manage.py migrate
 #Create Super User
 python manage.py createsuperuser
 user:khan
-pass : khan102030
+pass : khan102030/khan123
 email: taukir707@gmail.com
 
 # Migrate database in Docker system

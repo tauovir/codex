@@ -1,0 +1,24 @@
+server {
+    listen 80;
+    server_name 13.126.129.155;
+
+    location /media/ {
+      alias /home/ubuntu/webapp/codex/media/;
+    }
+
+    location /static/ {
+      alias /home/ubuntu/webapp/codex/staticfiles/;
+    }
+
+    location / {
+      include proxy_params;
+      proxy_pass  http://localhost:8000;
+
+    }
+  }
+
+sudo ln -s /etc/nginx/sites-available/codex_server /etc/nginx/sites-enabled/
+
+sudo nginx -t
+sudo service nginx restart
+sudo service nginx reload

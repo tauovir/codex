@@ -24,3 +24,12 @@ docker exec -t -i b8edf963a991 bash
 python manage.py makemigrations
 python manage.py migrate
 
+============================
+sudo apt-get update
+sudo apt-get install python3-pip
+sudo pip3 install virtualenv
+
+gunicorn codex.wsgi --bind
+gunicorn codex.wsgi:application --bind 0.0.0.0:8000
+
+=====================================Light

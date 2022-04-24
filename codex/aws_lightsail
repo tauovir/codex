@@ -1,0 +1,10 @@
+sudo apt-get update
+sudo apt-get install python3-pip
+sudo pip3 install virtualenv
+virtualenv venv
+source venv/bin/activate
+
+
+/home/ubuntu/webapp/venv/bin/gunicorn codex.wsgi:application --bind 0.0.0.0:8000 --workers 2
+web_access:
+http://13.126.129.155/

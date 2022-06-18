@@ -92,3 +92,20 @@ print("not in Operator:")
 print('is love in string1:','love' not in string1)
 print('is python in string1:','python' not in string1)
 print('is java in string1:','java' not in string1)
+
+#Comparioson Operator:
+os.system('clear')
+s1 = "mam"
+s2 = "man"
+print("s2 >s1:",s2 > s1)
+
+print("M >m:",'M' > 'm')
+print("M < m:",'M' < 'm')
+
+print("Mango >mango:","Mango" > "mango")
+print("mango >Mango:","mango" > "Mango")
+print("mango !=Mango:","mango" != "Mango")
+
+# Slicing:
+str1 = "Hello Python"
+print("")

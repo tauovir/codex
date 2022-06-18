@@ -6,3 +6,6 @@ postgres_data/
 .env*
 *.sql
 *.sh
+migrations/
+
+

@@ -78,6 +78,7 @@ WSGI_APPLICATION = 'codex.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+DB_SCHEMA = os.environ.get('DB_SCHEMA', 'public')
 DATABASES = {
     # 'default': {
     #     'ENGINE': 'django.db.backends.sqlite3',
@@ -90,6 +91,9 @@ DATABASES = {
         'PASSWORD': os.environ.get('SQL_PASSWORD', 'password'),
         'HOST': os.environ.get('SQL_HOST', 'localhost'),
         'PORT': os.environ.get('SQL_PORT', '5432'),
+        'OPTIONS': {
+                'options': f'-c search_path={DB_SCHEMA}'  # for specific schema
+            },
     }
 }
 

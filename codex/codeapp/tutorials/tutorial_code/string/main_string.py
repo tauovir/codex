@@ -1,5 +1,6 @@
 # Create string
 import os
+
 str1 = 'String in single quotes'
 str2 = 'String in double quotes'
 str3 = """String in triple quotes"""
@@ -18,9 +19,8 @@ prepend the string with a 'r' indicating that it is a raw string
 python1 = "I am learning \"Python\""
 python2 = "I am learning \'Python\'"
 
-python3 = r'I am learning "python"' #raw string
-python4 = r"I am learning 'python'" #raw string
-
+python3 = r'I am learning "python"'  # raw string
+python4 = r"I am learning 'python'"  # raw string
 
 print("Using Escape:")
 print(python1)
@@ -28,7 +28,6 @@ print(python2)
 print("USing Raw String:")
 print(python3)
 print(python4)
-
 
 """
 Traversing string
@@ -44,11 +43,11 @@ print(str1)
 # Negating indexing
 
 str1 = "Hello Python"
-print("Character at 0 index:",str1[0])
-print("Character at -12 index:",str1[-12])
+print("Character at 0 index:", str1[0])
+print("Character at -12 index:", str1[-12])
 
-print("Character at 11 index:",str1[11])
-print("Character at -1 index:",str1[-1])
+print("Character at 11 index:", str1[11])
+print("Character at -1 index:", str1[-1])
 
 # # Using for loop
 # str1 = "Hello Python"
@@ -63,49 +62,66 @@ while index < len(str1):
     print(str1[index])
     index += 1
 
-
-#Special operator:
-#Concatenating string:
+# Special operator:
+# Concatenating string:
 os.system('clear')
 str1 = "I eat "
 str2 = "Mango "
 str3 = "and Apple"
-str4 = str1 +str2 + str3
+str4 = str1 + str2 + str3
 print(str4)
 
-
-#Concatenating string:
+# Concatenating string:
 os.system('clear')
 fruit_name = "Mango  " * 5
 print(fruit_name)
 
-#Membership Operator:
+# Membership Operator:
 os.system('clear')
 string1 = "I love python programing"
 print("in Operator:")
-print('is love in string1:','love' in string1)
-print('is I in string1:','I' in string1)
-print('is python in string1:','python' in string1)
-print('is java in string1:','java' in string1)
+print('is love in string1:', 'love' in string1)
+print('is I in string1:', 'I' in string1)
+print('is python in string1:', 'python' in string1)
+print('is java in string1:', 'java' in string1)
 
 print("not in Operator:")
-print('is love in string1:','love' not in string1)
-print('is python in string1:','python' not in string1)
-print('is java in string1:','java' not in string1)
+print('is love in string1:', 'love' not in string1)
+print('is python in string1:', 'python' not in string1)
+print('is java in string1:', 'java' not in string1)
 
-#Comparioson Operator:
+# Comparioson Operator:
 os.system('clear')
 s1 = "mam"
 s2 = "man"
-print("s2 >s1:",s2 > s1)
+print("s2 >s1:", s2 > s1)
 
-print("M >m:",'M' > 'm')
-print("M < m:",'M' < 'm')
+print("M >m:", 'M' > 'm')
+print("M < m:", 'M' < 'm')
 
-print("Mango >mango:","Mango" > "mango")
-print("mango >Mango:","mango" > "Mango")
-print("mango !=Mango:","mango" != "Mango")
+print("Mango >mango:", "Mango" > "mango")
+print("mango >Mango:", "mango" > "Mango")
+print("mango !=Mango:", "mango" != "Mango")
 
 # Slicing:
-str1 = "Hello Python"
-print("")
+os.system('clear')
+print("Slicing String")
+
+str1 = "HELLO PYTHON"
+# str2 = str1[3:9:1]
+# print("str1[3:9:1]:", str2)
+# str2 = str1[0:5:1]
+# print("str1[0:5:1]:", str2)
+# str2 = str1[:5]
+# print("str1[:5]:", str2)
+# str2 = str1[1:12:2]
+# print("str1[1:12,2]:", str2)
+print("str1[3:]",str1[3:])
+print("str1[3:-1]:",str1[ 3: -1])
+print("str1[::-1]:",str1[ :: -1])
+
+## Immutability
+os.system('clear')
+print("Slicing String")
+str1 = "HELLO PYTHON"
+str1[2] = 'Z'

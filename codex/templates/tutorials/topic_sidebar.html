@@ -12,7 +12,7 @@
 				   {% for sec in recs.section %}
 
 					{% if recs.current_topic == recs.topic_slug %}
-				    <li class="nav-item"><a class="nav-link scrollto" href="#{{sec.section_id}}">{{sec.topic_section}}</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#{{sec.section}}">{{sec.topic_section}}</a></li>
 					{% else %}
 					<li class="nav-item"><a class="nav-link scrollto" href="{{ recs.topic_slug}}">{{sec.topic_section}}</a></li>
 					{% endif %}

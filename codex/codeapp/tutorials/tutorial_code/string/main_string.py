@@ -116,12 +116,41 @@ str1 = "HELLO PYTHON"
 # print("str1[:5]:", str2)
 # str2 = str1[1:12:2]
 # print("str1[1:12,2]:", str2)
-print("str1[3:]",str1[3:])
-print("str1[3:-1]:",str1[ 3: -1])
-print("str1[::-1]:",str1[ :: -1])
+print("str1[3:]", str1[3:])
+print("str1[3:-1]:", str1[3: -1])
+print("str1[::-1]:", str1[:: -1])
 
 ## Immutability
 os.system('clear')
 print("Slicing String")
 str1 = "HELLO PYTHON"
-str1[2] = 'Z'
+# str1[2] = 'Z'
+
+# Built-in function
+os.system('clear')
+
+str1 = "prograMMing"
+
+print("Main string:",str1)
+print("Built-in Function:")
+print("len:", len(str1))
+print("capitalize:", str1.capitalize())
+print("split:", str1.split(sep=" "))
+print("title:", str1.title())
+print("lower:", str1.lower())
+print("upper:", str1.upper())
+print("isalpha:", str1.isalpha())
+print("isalnum:", str1.isalnum())
+
+os.system('clear')
+
+str1 = "  I am learning python  "  # with two leading and trailing spaces
+stripped_str = str1.strip()
+print("stripped_str:",stripped_str)
+print("replace:",str1.replace('I am','We are'))
+print("find:",str1.find('learning'))
+print("find(not found):",str1.find('java'))
+print("index:",str1.index('python'))
+print("isalnum:",str1.isalnum())     # contain spaces, so False
+print("isalnum:","python3".isalnum())
+print("join:","#".join(['p','y','t','h','o','n']))

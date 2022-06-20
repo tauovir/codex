@@ -2,10 +2,8 @@ venv/
 data/
 postgres_data/
 .idea/
-*.pyc
 .env*
-
 *.sh
 migrations/
-
-
+*.pyc
+*.cpython*

@@ -7,8 +7,8 @@ from .models import Subjects, Topics
 
 def index(request):
     subject_data = []
-    for sub in Subjects.objects.filter(status=1).all()[0:10]:
-        topic = Topics.objects.filter(subject=sub).first()
+    for sub in Subjects.objects.filter(status=1,is_publish = True).all()[0:10]:
+        topic = Topics.objects.filter(subject=sub,is_publish = True).first()
         temp_data = {"subject_id": sub.id, "subject_name": sub.name,
                      "subject_description": sub.description, "subject_slug": sub.slug,
                      "topic_slug": topic.slug if topic else '#'
@@ -25,11 +25,11 @@ def topic_detail(request, subject_slug, topic_slug):
 
     sidebar = get_sidebar_list(subject_slug, topic_slug)
 
-    for topic in Topics.objects.filter(slug=topic_slug).all():
+    for topic in Topics.objects.filter(slug=topic_slug,status=1,is_publish = True).all():
         temp = {"topic": topic.name, "topic_id": "topic" + str(topic.id), "description": topic.description,
                 "section": []}
 
-        for sec in topic.topicsection_set.order_by('section_order').all():
+        for sec in topic.topicsection_set.order_by('section_order').filter(status=1,is_publish = True).all():
             sec_temp = {"topic_section": sec.name, "section": get_scroll_section(sec.name),
                         "description": sec.description}
             temp['section'].append(sec_temp)
@@ -41,14 +41,14 @@ def topic_detail(request, subject_slug, topic_slug):
 def get_sidebar_list(subject_slug, topic_slug):
     sidebar_list = []
 
-    subject = Subjects.objects.filter(slug=subject_slug).first()
-    for topic in subject.topics.order_by('topic_order').all():
+    subject = Subjects.objects.filter(slug=subject_slug,status=1,is_publish = True).first()
+    for topic in subject.topics.filter(status=1,is_publish = True).order_by('topic_order').all():
 
         temp = {"topic": topic.name, "topic_id": "topic" + str(topic.id), 'topic_slug': topic.slug,
                 "subject_slug": subject.slug, "current_topic": topic_slug,
                 "section": []}
 
-        for sec in topic.topicsection_set.order_by('section_order').all():
+        for sec in topic.topicsection_set.order_by('section_order').filter(status=1,is_publish = True).all():
             sec_temp = {"topic_section": sec.name, "section": get_scroll_section(sec.name)}
             temp['section'].append(sec_temp)
 

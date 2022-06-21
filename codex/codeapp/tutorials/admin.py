@@ -8,7 +8,7 @@ from .models import Subjects, Topics, TopicSection, PostDetail, Posts
 
 class SubjectAdmin(admin.ModelAdmin):
 
-    list_display = ('name', 'slug', 'description', 'status', 'created_at')  # Show these element in admin
+    list_display = ('name', 'slug','is_publish', 'status', 'created_at')  # Show these element in admin
     list_filter = ('status',)
     search_fields = ('name', 'slug')
     prepopulated_fields = {'slug': ('name',)}  # It will automatically prefilled slug when we type title
@@ -23,10 +23,11 @@ class SubjectAdmin(admin.ModelAdmin):
 
 class TopicsAdmin(admin.ModelAdmin):
 
-    list_display = ('name', 'slug', 'description', 'subject', 'topic_order','created_at')  # Show these element in admin
-    list_filter = ('status','topic_order')
+    list_display = ('name', 'slug', 'subject','is_publish', 'topic_order','created_at')  # Show these element in admin
+    list_filter = ('status','subject')
     search_fields = ('name', 'slug')
     prepopulated_fields = {'slug': ('name',)}  # It will automatically prefilled slug when we type title
+    list_per_page = 10  # record 10 per page
 
     def days_since_creation(self, Topics):
         diff = timezone.now().date() - Topics.created_at
@@ -38,7 +39,7 @@ class TopicsAdmin(admin.ModelAdmin):
 
 class TopicSectionAdmin(admin.ModelAdmin):
 
-    list_display = ('name', 'topic', 'section_order', 'status','created_at')  # Show these element in admin
+    list_display = ('name', 'topic','is_publish', 'section_order', 'status','created_at')  # Show these element in admin
     list_filter = ('status','topic')
     search_fields = ('name','topic')
 

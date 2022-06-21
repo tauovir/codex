@@ -4,22 +4,31 @@ import datetime
 from django_ckeditor_5.fields import CKEditor5Field
 from django.utils import timezone
 
+
 # ==========================Master Tables===================================
+PUBLISH = True
+UNPUBLISH = False
+
+PUBLISH_CHOICE = [(PUBLISH, 'Publish'), (UNPUBLISH, 'Unpublish'),]
 
 class Subjects(models.Model):
 
+
+
     name = models.CharField(max_length=200, null=False)  # max_length required
     slug = models.SlugField(max_length=120, null=False, unique=True)  # max_length required
-    description = CKEditor5Field('Text', config_name='extends',default='')
+    description = CKEditor5Field('Text', config_name='extends', default='')
     image = models.ImageField(upload_to='subjects', null=True, blank=True)
 
     class Status(models.IntegerChoices):
         active = 1
         inactive = 0
 
-    status = models.IntegerField(choices=Status.choices,default=Status.active)
+    status = models.IntegerField(choices=Status.choices, default=Status.active)
     created_at = models.DateField(default=datetime.date.today)
     updated_at = models.DateField(auto_now_add=True)
+
+    is_publish = models.BooleanField(choices=PUBLISH_CHOICE, default=UNPUBLISH)
 
     def __str__(self):
         return self.name
@@ -30,14 +39,12 @@ class Subjects(models.Model):
         verbose_name_plural = 'Subjects'
 
 
-
 class Topics(models.Model):
-
     name = models.CharField(max_length=200, null=False)  # max_length required
     slug = models.SlugField(max_length=120, null=False, default='')  # max_length required
     # description = models.TextField(max_length=200, null=True)  # max_length required
     description = CKEditor5Field('Text', config_name='extends')
-    subject = models.ForeignKey(Subjects, on_delete=models.CASCADE,related_name="topics")
+    subject = models.ForeignKey(Subjects, on_delete=models.CASCADE, related_name="topics")
     topic_order = models.IntegerField(default=1)
     image = models.ImageField(upload_to='topics', null=True, blank=True)
 
@@ -45,8 +52,10 @@ class Topics(models.Model):
         active = 1
         inactive = 0
 
+    is_publish = models.BooleanField(choices=PUBLISH_CHOICE, default=UNPUBLISH)
+
     created_at = models.DateField(default=datetime.date.today)
-    status = models.IntegerField(choices=Status.choices,default=1)
+    status = models.IntegerField(choices=Status.choices, default=1)
     updated_at = models.DateField(auto_now_add=True)
 
     class Meta:
@@ -59,7 +68,6 @@ class Topics(models.Model):
 
 
 class TopicSection(models.Model):
-
     name = models.CharField(max_length=200, null=False)  # max_length required
     # description = CKEditor5Field('Text', config_name='extends')
     description = CKEditor5Field('Text', config_name='extends', default=None)
@@ -71,6 +79,7 @@ class TopicSection(models.Model):
         inactive = 0
 
     status = models.IntegerField(choices=Status.choices, default=1)
+    is_publish = models.BooleanField(choices=PUBLISH_CHOICE, default=UNPUBLISH)
     created_at = models.DateField(default=datetime.date.today)
     updated_at = models.DateField(auto_now_add=True)
 
@@ -84,8 +93,7 @@ class TopicSection(models.Model):
 
 
 class Posts(models.Model):
-
-    name = models.CharField(max_length=200,null=True)  # max_length required
+    name = models.CharField(max_length=200, null=True)  # max_length required
     title = models.CharField(max_length=200)  # max_length required
     slug = models.SlugField(max_length=200)  # max_length required
     desciption = CKEditor5Field(blank=False, null=True)
@@ -99,9 +107,9 @@ class Posts(models.Model):
         publish = 1
         not_publish = 0
 
-    is_publish = models.IntegerField(choices=IsPublish.choices,default=IsPublish.not_publish)
-    publish_date = models.DateField(auto_now_add=False,default=None,null=True)
-    status = models.IntegerField(choices=ActiveStatus.choices,default=ActiveStatus.inactive)
+    is_publish = models.IntegerField(choices=IsPublish.choices, default=IsPublish.not_publish)
+    publish_date = models.DateField(auto_now_add=False, default=None, null=True)
+    status = models.IntegerField(choices=ActiveStatus.choices, default=ActiveStatus.inactive)
     created_at = models.DateField(default=datetime.date.today)
 
     # It will show the title in admin panel instead of objects(id)
@@ -122,9 +130,8 @@ class Posts(models.Model):
 
 
 class PostDetail(models.Model):
-
     post = models.ForeignKey(Posts, on_delete=models.CASCADE)
-    summary = CKEditor5Field(blank=False, null=False,config_name='extends')
+    summary = CKEditor5Field(blank=False, null=False, config_name='extends')
     reference_url = models.URLField(max_length=200, default='https://github.com/tauovir', blank=True)
     comment_count = models.IntegerField(default=0)
 
@@ -138,7 +145,5 @@ class PostDetail(models.Model):
     class Meta:
         verbose_name = 'post detail'
         verbose_name_plural = 'post details'
-
-
 
 # ==========================Master Tables end===================================

@@ -45,13 +45,26 @@ for index in range(len(list1)):
 os.system('clear')
 colors = ["RED", "BLUE", "GREEN"]
 temp_colors = colors
-print("colors:",colors)
-print("temp_colors:",temp_colors)
-
 temp_colors2 = temp_colors
-print("temp_colors:",temp_colors2)
-temp_colors2[1] ="BLACK"
-print("after chnage")
-print("colors:",colors)
-print("temp_colors:",temp_colors)
-print("temp_colors:",temp_colors2)
+print("*" * 30, "MEMORY ADDRESS", "*" * 30)
+print("Memory address of colors:", id(colors))
+print("Memory address of temp_colors:", id(temp_colors))
+print("Memory address of temp_colors2:", id(temp_colors2))
+print("*" * 30, "BEFORE MODIFICATION", "*" * 30)
+print("colors:", colors)
+print("temp_colors:", temp_colors)
+print("temp_colors:", temp_colors2)
+temp_colors2[1] = "BLACK"
+print("*" * 30, "AFTER MODIFICATION", "*" * 30)
+print("colors:", colors)
+print("temp_colors:", temp_colors)
+print("temp_colors:", temp_colors2)
+
+# Comparing List:
+os.system('clear')
+l1 = [10, 20, 30]
+l2 = [10, 20, 30]
+l3 = [10, 20, 40]
+print("l1==l2:", l1 == l2)
+print("l1 > l3:", l1 > l3)
+print("l1 < l3:", l1 < l3)

@@ -1,0 +1,73 @@
+1. Collect static files locally
+python manage.py collectstatic
+
+#Stage-1:Install Python and pull updated code
+
+sudo apt-get update
+sudo apt-get install python3-pip
+sudo pip3 install virtualenv
+
+mkdir codebook && cd codebook
+git clone https://github.com/tauovir/codex.git .
+
+Stage2: Install Postgres12
+sudo apt update
+Step 2: Install required package
+sudo apt -y install vim bash-completion wget
+Step 3: Add PostgreSQL 12 repository
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+Step 4: Install PostgreSQL 12 on Ubuntu
+sudo apt update
+sudo apt -y install postgresql-12 postgresql-client-12
+Step 5: Check PostgreSQL service status
+systemctl status postgresql.service
+Step 6: Connect PostgreSQL
+sudo su - postgres
+psql
+7 . Change the password of postgres role
+\password postgres
+
+8. # Create Database
+CREATE DATABASE codebook_db;
+
+#*********Opetional
+\conninfo
+List created databases:
+\l
+Connect to database:
+\c codebook_db
+detach from postgres teminal and restore database
+9. Restore Database
+/usr/bin/pg_restore --host "localhost" --port "5432" --username "postgres" --dbname "codebook_db" --verbose "path/database_name.sql"
+
+===================Postgres End=========================
+Stage-3: Install NGINX
+sudo apt update
+sudo apt install nginx
+cd /etc/nginx/sites-available
+Configure nginx file: check nginx file in this directory
+
+# Stage-4: Install NGINX
+sudo apt-get update
+sudo apt-get install tmux
+[
+tmux a -t mysession
+crl + b, d
+clr + b, "
+]
+https://tmuxcheatsheet.com/
+
+Stage4:
+cd codebook
+virtualenv venv
+source venv/bin/activate && cd codex
+pip install -r requirements.txt
+#create .env file and add configuration
+vim .env
+Run Server:
+
+/home/ubuntu/codebook/venv/bin/gunicorn codex.wsgi:application --bind 0.0.0.0:8000 --workers 2
+
+web_access:
+user:taukir707
+pass : khan102030

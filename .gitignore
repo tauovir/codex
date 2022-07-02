@@ -7,3 +7,4 @@ postgres_data/
 migrations/
 *.pyc
 *.cpython*
+staticfiles22

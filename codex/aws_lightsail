@@ -9,7 +9,7 @@ virtualenv venv
 source venv/bin/activate
 
 
-/home/ubuntu/webapp/venv/bin/gunicorn codex.wsgi:application --bind 0.0.0.0:8000 --workers 2
+/home/ubuntu/codebook/venv/bin/gunicorn codex.wsgi:application --bind 0.0.0.0:8000 --workers 2
 web_access:
 http://13.126.129.155/
 
@@ -18,3 +18,70 @@ khan,
 khan102030
 portgres:pwd
 khan102030
+==================
+git clone https://github.com/tauovir/codex.git .
+sudo apt-get update
+sudo apt-get install python3-pip
+sudo pip3 install virtualenv
+virtualenv venv
+source venv/bin/activate
+cd codex
+pip install -r requirements.txt
+
+create .env file
+========================Steps=============================================
+sudo apt-get update
+sudo apt-get install python3-pip
+sudo pip3 install virtualenv
+
+mkdir codebook && cd codebook
+git clone https://github.com/tauovir/codex.git .
+
+##========= Install Postgres12======================
+sudo apt update
+Step 2: Install required package
+sudo apt -y install vim bash-completion wget
+Step 3: Add PostgreSQL 12 repository
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+Step 4: Install PostgreSQL 12 on Ubuntu
+sudo apt update
+sudo apt -y install postgresql-12 postgresql-client-12
+Step 5: Check PostgreSQL service status
+systemctl status postgresql.service
+Step 6: Connect PostgreSQL
+sudo su - postgres
+psql
+7 . Change the password of postgres role
+\password postgres
+#check SOme command
+\conninfo
+List created databases:
+\l
+# Create Database
+CREATE DATABASE codebook_db;
+Connect to database:
+\c codebook_db
+detach from postgres teminal and restore database
+/usr/bin/pg_restore --host "localhost" --port "5432" --username "postgres" --dbname "codebook_db" --verbose "/home/ubuntu/codebook/db_backup/codex_final_db_01_july.sql"
+===================Postgres End=========================
+cd codebook
+virtualenv venv
+source venv/bin/activate && cd codex
+pip install -r requirements.txt
+#create .env file and add configuration
+vim .env
+
+#Install Tmux
+sudo apt-get update
+sudo apt-get install tmux
+
+
+
+# INstall NGINX
+sudo apt update
+sudo apt install nginx
+cd /etc/nginx/sites-available
+
+
+taukir707
+pass = khan102030

@@ -24,8 +24,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
-DEBUG = (os.environ.get("DEBUG", default=False))
+DEBUG = True
+IS_PRODUCTION = os.environ.get("IS_PRODUCTION", default="True")
+if IS_PRODUCTION.lower() == 'true':
+    DEBUG = False
+
 print("DEBUG:",DEBUG)
 
 # ALLOWED_HOSTS = ['*']

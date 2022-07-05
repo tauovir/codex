@@ -8,3 +8,4 @@ migrations/
 *.pyc
 *.cpython*
 staticfiles22
+media/

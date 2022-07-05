@@ -19,6 +19,7 @@ class Subjects(models.Model):
     slug = models.SlugField(max_length=120, null=False, unique=True)  # max_length required
     description = CKEditor5Field('Text', config_name='extends', default='')
     image = models.ImageField(upload_to='subjects', null=True, blank=True)
+    icon = models.ImageField(upload_to='subjects_icons', null=True, blank=True)
 
     class Status(models.IntegerChoices):
         active = 1
@@ -145,5 +146,22 @@ class PostDetail(models.Model):
     class Meta:
         verbose_name = 'post detail'
         verbose_name_plural = 'post details'
+
+
+
+class Notes(models.Model):
+
+    name = models.CharField(max_length=200, null=False)  # max_length required
+    description = CKEditor5Field('Text', config_name='extends', default='')
+
+    created_at = models.DateField(default=datetime.date.today)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        db_table = 'notes_dm'
+        verbose_name = 'Note'
+        verbose_name_plural = 'Notes'
 
 # ==========================Master Tables end===================================

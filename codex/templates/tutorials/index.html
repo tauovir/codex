@@ -48,15 +48,18 @@
 					    <div class="card shadow-sm">
 						    <div class="card-body">
 							    <h5 class="card-title mb-3">
+									{% if  rec.subject_icon %}
+									<img src="{{ rec.subject_icon }}"/>
+									{% else %}
 								    <span class="theme-icon-holder card-icon-holder me-2">
 								        <i class="fas fa-map-signs"></i>
 							        </span><!--//card-icon-holder-->
+									{% endif %}
 							        <span class="card-title-text">{{ rec.subject_name }}</span>
 							    </h5>
 							    <div class="card-text">
 								    {{rec.subject_description | safe |slice:":220"}} <bold>........Read more</bold>
 							    </div>
-<!--							    <a class="card-link-mask" href="docs-page.html#section-1"></a>-->
 								 <a class="card-link-mask" href="{{rec.subject_slug}}/{{ rec.topic_slug}}"></a>
 						    </div><!--//card-body-->
 					    </div><!--//card-->

@@ -3,12 +3,12 @@ from django.contrib import admin
 # Register your models here.
 
 from django.utils import timezone
-from .models import Subjects, Topics, TopicSection, PostDetail, Posts
+from .models import Subjects, Topics, TopicSection, PostDetail, Posts, Notes
 
 
 class SubjectAdmin(admin.ModelAdmin):
 
-    list_display = ('name', 'slug','is_publish', 'status', 'created_at')  # Show these element in admin
+    list_display = ('name', 'slug','is_publish', 'status','icon', 'created_at')  # Show these element in admin
     list_filter = ('status',)
     search_fields = ('name', 'slug')
     prepopulated_fields = {'slug': ('name',)}  # It will automatically prefilled slug when we type title
@@ -69,9 +69,18 @@ class PostAdmin(admin.ModelAdmin):
     days_since_creation.short_description = 'Days Active'  # Rename new prperty
 
 
+class NotesAdmin(admin.ModelAdmin):
+
+    list_display = (
+        'name', 'description','created_at',)  # Show these element in admin
+
+
+
+
 admin.site.register(Subjects, SubjectAdmin)
 admin.site.register(Topics,TopicsAdmin)
 admin.site.register(TopicSection,TopicSectionAdmin)
 admin.site.register(Posts, PostAdmin)
 admin.site.register(PostDetail)
+admin.site.register(Notes,NotesAdmin)
 

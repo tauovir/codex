@@ -41,7 +41,7 @@ class TopicSectionAdmin(admin.ModelAdmin):
 
     list_display = ('name', 'topic','is_publish', 'section_order', 'status','created_at')  # Show these element in admin
     list_filter = ('status','topic')
-    search_fields = ('name','topic')
+    search_fields = ('name',)
 
     def days_since_creation(self, Topics):
         diff = timezone.now().date() - Topics.created_at

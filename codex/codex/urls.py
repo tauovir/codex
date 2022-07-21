@@ -19,6 +19,10 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+admin.site.site_header = "CodeX Control Panel"
+admin.site.site_title = "Codex Site Management"
+admin.site.index_title = "CodeX Control Site"
+
 urlpatterns = [
     path('codexadmin/', admin.site.urls),
     path('', include('codeapp.tutorials.urls')),

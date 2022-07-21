@@ -62,11 +62,11 @@ sidebarLinks.forEach((sidebarLink) => {
 		e.preventDefault();
 		
 		var target = sidebarLink.getAttribute("href").replace('#', '');
-		
+
 		//console.log(target);
-		
+
         document.getElementById(target).scrollIntoView({ behavior: 'smooth' });
-        
+
         
         //Collapse sidebar after clicking
 		if (sidebar.classList.contains('sidebar-visible') && window.innerWidth < 1200){

@@ -8,13 +8,13 @@
 		    <nav id="docs-nav" class="docs-nav navbar">
 			    <ul class="section-items list-unstyled nav flex-column pb-3">
 					{% for recs in sidebar %}
-					<li class="nav-item section-title"><a class="nav-link scrollto active" href="{{ recs.topic_slug}}"><span class="theme-icon-holder me-2"><i class="fas fa-map-signs"></i></span>{{ recs.topic }}</a></li>
+					<li class="nav-item section-title"><a class="nav-link {% if recs.current_topic == recs.topic_slug %} active {% endif %}" href="{{ recs.topic_slug}}"><span class="theme-icon-holder me-2"><i class="fas fa-book-reader"></i></span>{{ recs.topic }}</a></li>
 				   {% for sec in recs.section %}
 
 					{% if recs.current_topic == recs.topic_slug %}
 				    <li class="nav-item"><a class="nav-link scrollto" href="#{{sec.section}}">{{sec.topic_section}}</a></li>
 					{% else %}
-					<li class="nav-item"><a class="nav-link scrollto" href="{{ recs.topic_slug}}">{{sec.topic_section}}</a></li>
+					<li class="nav-item"><a class="nav-link" href="{{ recs.topic_slug}}">{{sec.topic_section}}</a></li>
 					{% endif %}
 					{% endfor %}
 					{% endfor %}

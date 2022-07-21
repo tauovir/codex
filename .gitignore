@@ -5,7 +5,12 @@ postgres_data/
 .env*
 *.sh
 migrations/
-*.pyc
-*.cpython*
+
 staticfiles22
 media/
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+# Django stuff:
+*.log
+*.pot

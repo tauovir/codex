@@ -25,9 +25,10 @@ admin.site.index_title = "CodeX Control Site"
 
 urlpatterns = [
     path('codexadmin/', admin.site.urls),
+    path('weblog', include('codeapp.weblog.urls')),
     path('', include('codeapp.tutorials.urls')),
     path('', include('codeapp.resume.urls')),
-    path('', include('contacts.urls')),
+
 ]
 
 urlpatterns += [path("ckeditor5/", include('django_ckeditor_5.urls')), ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

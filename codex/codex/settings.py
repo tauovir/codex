@@ -37,6 +37,7 @@ ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS")
 # Application definition
 
 INSTALLED_APPS = [
+    'codeapp.weblog',
     'codeapp.tutorials',
     'codeapp.resume',
     'django.contrib.admin',

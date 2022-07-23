@@ -18,6 +18,9 @@ docker exec -t -i b8edf963a991 bash
 python manage.py makemigrations
 python manage.py migrate
 
+######Migrate Specific app Model
+python manage.py makemigrations weblog
+python manage.py migrate weblog
 ============================
 sudo apt-get update
 sudo apt-get install python3-pip

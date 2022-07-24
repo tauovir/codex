@@ -3,7 +3,8 @@ from django.shortcuts import render
 # Create your views here.
 
 from .models import Subjects, Topics
-
+from codeapp.analytics.models import WebAccessLog
+from ipware import get_client_ip
 
 def index(request):
     subject_data = []
@@ -35,7 +36,24 @@ def topic_detail(request, subject_slug, topic_slug):
             temp['section'].append(sec_temp)
         resp.append(temp)
 
+    _store_access_log(request,topic_slug)
+
     return render(request, 'tutorials/topics_detail.html', {"records": resp, "sidebar": sidebar})
+
+
+def _store_access_log(request,slug):
+
+    topic = Topics.objects.get(slug=slug,status=1, is_publish=True)
+    if not topic:
+        return 0
+    try:
+        ip, is_routable = get_client_ip(request)
+        if ip:
+            log_obj = WebAccessLog(ip_address=ip, topic_id=topic.id)
+            log_obj.save()
+    except:
+        pass
+
 
 
 def get_sidebar_list(subject_slug, topic_slug):

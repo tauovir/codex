@@ -5,8 +5,6 @@ from django.utils import timezone
 
 # Create your models here.
 
-
-
 class PostCategory(models.Model):
 
     name = models.CharField(max_length=200, null=True)

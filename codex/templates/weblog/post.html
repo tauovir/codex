@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>CoderDocs - Bootstrap 4 Documentation Template For Software Projects</title>
+    <title>CodeX</title>
       {% load static %}
     <!-- Meta -->
     <meta charset="utf-8">
@@ -38,18 +38,18 @@
 
 				<article class="docs-article" id="{{topics.topic_id}}">
 				    <header class="docs-header">
-					    <h1 class="docs-heading">Post Title <span class="docs-time">Last updated: 2019-06-01</span></h1>
+					    <h1 class="docs-heading">{{post.title}} <span class="docs-time">Last updated: {{post.publish_date}}</span></h1>
 					    <section class="docs-intro">
-						    <p>Post description</p>
+						    <p>{{ post.summary | safe }}</p>
 						</section><!--//docs-intro-->
 
 				    </header>
 
-				    <section class="docs-section" id="section_id">
-						<h2 class="section-heading">Topic Secction</h2>
-						<p>Pandas are really powerful. They provide us with a huge set of important commands and features which are used to easily analyze your data. We can use Pandas to perform various tasks like filtering your data according to certain conditions, or joining two or more dataframes,  importing, exporting data in various forms, connectivity with databases etc.</p>
+<!--				    <section class="docs-section" id="section_id">-->
+<!--						<h2 class="section-heading">Topic Secction</h2>-->
+<!--						<p>Pandas are really powerful. They provide us with a huge set of important commands and features which are used to easily analyze your data. We can use Pandas to perform various tasks like filtering your data according to certain conditions, or joining two or more dataframes,  importing, exporting data in various forms, connectivity with databases etc.</p>-->
 
-					</section><!--//section-->
+<!--					</section>&lt;!&ndash;//section&ndash;&gt;-->
 
 			    </article>
 

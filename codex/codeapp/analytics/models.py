@@ -2,18 +2,17 @@ from django.db import models
 
 # Create your models here.
 from django.db import models
-import datetime
 from django.utils import timezone
 from codeapp.weblog.models import Post
 from codeapp.tutorials.models import Topics
 
+
 # Create your models here.
 
 class WebAccessLog(models.Model):
-
     ip_address = models.CharField(max_length=200, null=True)
-    post_id = models.IntegerField(null=True)
-    topic_id = models.IntegerField(null=True)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    topic = models.ForeignKey(Topics, on_delete=models.CASCADE)
     city = models.CharField(max_length=200, null=True)
     state = models.CharField(max_length=200, null=True)
     country = models.CharField(max_length=200, null=True)
@@ -27,7 +26,3 @@ class WebAccessLog(models.Model):
         db_table = 'web_access_log'
         verbose_name = 'Web Access Log'
         verbose_name_plural = 'Web Access Log'
-
-
-
-

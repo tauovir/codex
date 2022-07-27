@@ -7,128 +7,100 @@ import json
 # from ..errorMessage import getApiMsg
 import re
 
+from django.forms.models import model_to_dict
+
 
 # Create your views here.
 
-
 def resume_view(request):
-    querySet = Projects.objects.all()
-    formatedData = makeData(querySet)
-    catTechSet = Technology_Category.objects.all()
-    techList, otherTech = formatTechnology(catTechSet)
-
+    profile = Profile.objects.filter(email='taukir707@gmail.com').get()
     educationSet = Profile.objects.first().educations_set.filter(is_school=0)
-    educationData = [{'short_name': x.course_short_name, 'full_name': x.course_full_name, 'start_year': x.start_year,
-                      'end_year': x.end_year} for x in educationSet]
-    certificateSet = Profile.objects.first().certificates_set.all()
-    certificateData = [{'name': x.name, 'short_name': x.short_name, 'institute_short_name': x.institute_short_name} for
-                       x in certificateSet]
-    interestSet = Profile.objects.first().user_interest_set.all()
-    intresteList = [x.name for x in interestSet]
 
+    tech_set, other_tech = __get_technologies()
     context = {
-        'formatedData': formatedData,
-        'techData': techList,
-        'otherTech': otherTech,
-        'educationData': educationData,
-        'certificateData': certificateData,
-        'intresteList': intresteList,
+        "profile": profile,
+        "technology_data": tech_set,
+        "other_tech": other_tech,
+        "employment_data": __get_employement(),
+        "educationSet": educationSet
 
     }
-    return render(request, 'resume/resume_index.html', context)
+    print("context:", context['employment_data'])
+    return render(request, 'resume/resume_profile.html', context)
 
 
-"""
-formate data for templae so that we can easily retrieve it
-"""
+def __get_technologies():
+    tech_set = []
+    other_tech = []
 
+    catTechSet = Technology_Category.objects.order_by('cat_order').all()
 
-def makeData(querySet):
-    # Initialize dictionar and list
-    employmentList = []
-    projectList = []
-    resultData = {}
-    employmentData = {}
+    for cat_obj in catTechSet:
+        tech_list = []
 
-    for projects in querySet:
-        # Employment Dictionary
-        if not any(d['id'] == projects.employment.id for d in employmentList):  # Check id in list of dictionary
-            projectList = []
-            projectData = {}
-            # bind projects data
-            projectData['id'] = projects.id
-            projectData['name'] = projects.name
-            projectData['team_size'] = projects.team_size
-            projectData['description'] = projects.description
-            projectData['role_responsibility'] = projects.role_responsibility
-            # tempTechList = projects.technology.all().values('name')
-            # techList = [x['name'] for x in tempTechList]
-            tempTechList = projects.technology.all()
-            techList = [{'name': x.name, 'version': x.version} for x in tempTechList]
-            projectData['technology'] = techList
-            projectList.append(projectData)
-            # Bind Employement data
-            employmentData = {
-                'id': projects.employment.id,
-                'employer': projects.employment.employer,
-                'position': projects.employment.position,
-                'summary': projects.employment.summary,
-                'start_date': projects.employment.start_date,
-                'end_date': projects.employment.end_date,
-                'is_current_org': projects.employment.is_current_org,
-                'projects': projectList,
-            }
-            employmentList.append(employmentData)
-        else:
-            # Bind project data with its associate company.employement
-            projectData = {}
-            projectData['id'] = projects.id
-            projectData['name'] = projects.name
-            projectData['team_size'] = projects.team_size
-            projectData['description'] = projects.description
-            projectData['role_responsibility'] = projects.role_responsibility
-            # tempTechList = projects.technology.all().values('name')
-            # techList = [x['name'] for x in tempTechList]
-            tempTechList = projects.technology.all()
-            techList = [{'name': x.name, 'version': x.version} for x in tempTechList]
-            projectData['technology'] = techList
-            projectList.append(projectData)
+        if cat_obj.name.lower() == 'others':
+            tempOther = cat_obj.technologies_set.all()
+            other_tech = [x.name for x in tempOther]
 
-            for emp in employmentList:
-                if emp['id'] == projects.employment.id:
-                    emp['projects'] = projectList  # Append new project at appropreate index
-                    break
-        resultData = {
-            'id': projects.employment.profile.id,
-            'name': projects.employment.profile.middle_name + " " + projects.employment.profile.last_name,
-            'profile_title': projects.employment.profile.profile_title,
-            'email': projects.employment.profile.email,
-            'mobile_number': projects.employment.profile.mobile_number,
-            'brief_summary': projects.employment.profile.brief_summary,
-            'employments': employmentList,
+            continue
+
+        cat_dict = {
+            "name": cat_obj.name,
+            "status": cat_obj.status,
+            "created_at": cat_obj.created_at,
+            "cat_order": cat_obj.cat_order,
 
         }
+        for tech_obj in cat_obj.technologies_set.order_by('tech_order').all():
+            technology_set = {
+                "name": tech_obj.name,
+                "version": tech_obj.version,
+                "rate": tech_obj.rate,
+                "is_other": tech_obj.is_other,
+            }
+            tech_list.append(technology_set)
+        cat_dict['technology_set'] = tech_list
 
-    return resultData
+        tech_set.append(cat_dict)
+
+    return tech_set, other_tech
 
 
-# Formatting Technology data
-def formatTechnology(catTechSet):
-    catList = []
-    otherTech = []
-    for cat in catTechSet:
-        if cat.name == 'Others':
-            tempOther = cat.technologies_set.all()
-            otherTech = [x.name for x in tempOther]
-        else:
-            techList = []
-            catTemp = {'name': cat.name}
-            temp = cat.technologies_set.all()
-            techList = [{'name': x.name, 'version': x.version, 'rate': x.rate} for x in temp]
-            catTemp = {cat.name: techList}
-            catList.append(catTemp)
+def __get_employement():
+    employment_set = []
+    employment = Employment.objects.order_by('-start_date').all()
 
-    return catList, otherTech
+    for emp_obj in employment:
+        pro_list = []
+        emp_dict = {
+            "position": emp_obj.position,
+            "employer": emp_obj.employer,
+            "location": emp_obj.location,
+            "summary": emp_obj.summary,
+            "start_date": emp_obj.start_date,
+            "end_date": emp_obj.end_date,
+            "is_current_org": emp_obj.is_current_org,
+            "created_at": emp_obj.created_at,
+            "updated_at": emp_obj.updated_at,
+        }
+        for pro_obj in emp_obj.projects_set.order_by('-start_date').all():
+            project_set = {
+                "name": pro_obj.name,
+                "role_responsibility": pro_obj.role_responsibility,
+                "team_size": pro_obj.team_size,
+                "start_date": pro_obj.start_date,
+                "end_date": pro_obj.end_date,
+                "tech_stack": pro_obj.tech_stack,
+                "created_at": pro_obj.created_at,
+            }
+            pro_list.append(project_set)
+
+        emp_dict['project_set'] = pro_list
+
+        employment_set.append(emp_dict)
+
+    return employment_set
+
 
 
 """

@@ -3,27 +3,7 @@ from django.db import models
 # Create your models here.
 import datetime
 
-
-class Languages(models.Model):
-    name = models.CharField(max_length=20, null=True)  # max_length required
-
-    class status(models.IntegerChoices):
-        active = 1
-        not_active = 0
-
-    is_other = models.IntegerField(default=1, choices=status.choices)
-    created_at = models.DateField(default=datetime.date.today)
-
-    def __str__(self):
-        return self.name
-
-
-class Language_Proficiency(models.Model):
-    name = models.CharField(max_length=20, null=True)  # max_length required
-    created_at = models.DateField(default=datetime.date.today)
-
-    def __str__(self):
-        return self.name
+import jsonfield
 
 
 class Technology_Category(models.Model):
@@ -35,6 +15,7 @@ class Technology_Category(models.Model):
 
     status = models.IntegerField(default=1, choices=status.choices)
     created_at = models.DateField(default=datetime.date.today)
+    cat_order = models.SmallIntegerField(default=1)
 
     def __str__(self):
         return self.name
@@ -50,7 +31,13 @@ class Technologies(models.Model):
         yes = 1
         no = 0
 
+    class status(models.IntegerChoices):
+        active = 1
+        not_active = 0
+
+    status = models.IntegerField(default=1, choices=status.choices)
     is_other = models.IntegerField(default=0, choices=isOther.choices)
+    tech_order = models.IntegerField()
 
     def __str__(self):
         return self.name
@@ -64,12 +51,11 @@ class Profile(models.Model):
     middle_name = models.CharField(max_length=120, default='')  # max_length required
     last_name = models.CharField(max_length=120, default='')  # max_length required
     profile_title = models.CharField(max_length=120, default='')  # max_length required
-    brief_summary = models.TextField(max_length=800, default='')  # max_length required
+    brief_summary = models.TextField(max_length=800, null=False)  # max_length required
     email = models.EmailField(max_length=50, default='')  # max_length required
     mobile_number = models.CharField(max_length=15, default='')  # max_length required
-    profile_pic = models.ImageField(upload_to='profile')
-    banner_image = models.ImageField(upload_to='profile')
-    social_linkes = models.CharField(max_length=250, default='')  # max_length required
+    profile_pic = models.ImageField(upload_to='resume',null=True)
+    data = jsonfield.JSONField()
     created_at = models.DateField(default=datetime.date.today)
     updated_at = models.DateField(auto_now_add=True)
 
@@ -106,8 +92,7 @@ class Projects(models.Model):
     team_size = models.PositiveSmallIntegerField(default=0)
     start_date = models.DateField()
     end_date = models.DateField(blank=True, null=True)
-    # technology = models.ManyToManyField(Technologies,db_table='blog_project_technology')
-    technology = models.ManyToManyField(Technologies)
+    tech_stack = jsonfield.JSONField()
     created_at = models.DateField(default=datetime.date.today)
 
     # technology = models.ManyToManyField(Technologies,through='Project_Technology')
@@ -119,26 +104,6 @@ class Projects(models.Model):
         verbose_name = 'Projects'
         verbose_name_plural = 'Projects'
 
-
-class User_Language(models.Model):
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    language = models.ForeignKey(Languages, on_delete=models.CASCADE)
-    language_profiency = models.ForeignKey(Language_Proficiency, on_delete=models.CASCADE)
-    created_at = models.DateField(default=datetime.date.today)
-
-
-class Certificates(models.Model):
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    name = models.CharField(max_length=200, null=True)  # max_length required
-    short_name = models.CharField(max_length=100, null=True)  # max_length required
-    institute_short_name = models.CharField(max_length=50, null=True)  # max_length required
-    institute_full_name = models.CharField(max_length=100, null=True)  # max_length required
-    complition_date = models.DateField()  # max_length required
-    duration = models.CharField(max_length=100, null=True)  # max_length required
-    created_at = models.DateField(default=datetime.date.today)
-
-    def __str__(self):
-        return self.name
 
 
 class Educations(models.Model):
@@ -162,8 +127,3 @@ class Educations(models.Model):
     def __str__(self):
         return self.course_full_name
 
-
-class User_Interest(models.Model):
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    name = models.CharField(max_length=50, null=True)
-    created_at = models.DateField(default=datetime.date.today)

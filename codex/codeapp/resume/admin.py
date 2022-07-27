@@ -4,7 +4,8 @@ from django.db.models import Count
 # Register your models here.
 from .models import (
     Employment, Projects,
-    Technologies, Profile, Technology_Category
+    Technologies, Profile, Technology_Category,Educations,
+    # Languages,Language_Proficiency,User_Language,Certificates,,User_Interest
 )
 
 
@@ -41,3 +42,10 @@ admin.site.register(Projects, ProjectADmin)
 admin.site.register(Technologies)
 admin.site.register(Profile)
 admin.site.register(Technology_Category)
+
+admin.site.register(Educations)
+# admin.site.register(Language_Proficiency)
+# admin.site.register(User_Language)
+# admin.site.register(Certificates)
+# admin.site.register(Educations)
+# admin.site.register(User_Interest)

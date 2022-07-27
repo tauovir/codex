@@ -25,7 +25,6 @@ def resume_view(request):
         "educationSet": educationSet
 
     }
-    print("context:", context['employment_data'])
     return render(request, 'resume/resume_profile.html', context)
 
 

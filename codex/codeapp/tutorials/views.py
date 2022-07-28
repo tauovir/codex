@@ -6,6 +6,9 @@ from .models import Subjects, Topics
 from codeapp.analytics.models import WebAccessLog
 from ipware import get_client_ip
 
+from codeapp.weblog.models import Post
+
+
 def index(request):
     subject_data = []
     for sub in Subjects.objects.filter(status=1, is_publish=True).all()[0:10]:
@@ -16,7 +19,8 @@ def index(request):
                      }
         subject_data.append(temp_data)
 
-    resp_data = {"subjects": subject_data}
+    post_list = __get_post()
+    resp_data = {"subjects": subject_data, "post_list": post_list}
 
     return render(request, 'tutorials/index.html', resp_data)
 
@@ -36,14 +40,13 @@ def topic_detail(request, subject_slug, topic_slug):
             temp['section'].append(sec_temp)
         resp.append(temp)
 
-    _store_access_log(request,topic_slug)
+    _store_access_log(request, topic_slug)
 
     return render(request, 'tutorials/topics_detail.html', {"records": resp, "sidebar": sidebar})
 
 
-def _store_access_log(request,slug):
-
-    topic = Topics.objects.get(slug=slug,status=1, is_publish=True)
+def _store_access_log(request, slug):
+    topic = Topics.objects.get(slug=slug, status=1, is_publish=True)
     if not topic:
         return 0
     try:
@@ -53,7 +56,6 @@ def _store_access_log(request,slug):
             log_obj.save()
     except:
         pass
-
 
 
 def get_sidebar_list(subject_slug, topic_slug):
@@ -77,3 +79,9 @@ def get_sidebar_list(subject_slug, topic_slug):
 
 def get_scroll_section(section):
     return section.strip().lower().replace(" ", "-")
+
+
+def __get_post():
+
+    post_list = Post.objects.filter(is_publish=1).all()
+    return post_list

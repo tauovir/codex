@@ -29,11 +29,11 @@
 	    <div class="theme-bg-shapes-right"></div>
 	    <div class="theme-bg-shapes-left"></div>
 	    <div class="container">
-		    <h1 class="page-heading single-col-max mx-auto">Documentation</h1>
-		    <div class="page-intro single-col-max mx-auto">Everything you need to get your software documentation online.</div>
+		    <h1 class="page-heading single-col-max mx-auto">Codex Confluence</h1>
+		    <div class="page-intro single-col-max mx-auto">Everything you need to get your software technologies.</div>
 		    <div class="main-search-box pt-3 d-block mx-auto">
                  <form class="search-form w-100">
-		            <input type="text" placeholder="Search the docs..." name="search" class="form-control search-input">
+		            <input type="text" placeholder="Search the content..." name="search" class="form-control search-input">
 		            <button type="submit" class="btn search-btn" value="Search"><i class="fas fa-search"></i></button>
 		        </form>
              </div>
@@ -72,7 +72,49 @@
 		</div><!--//container-->
     </div><!--//page-content-->
 
-    <section class="cta-section text-center py-5 theme-bg-dark position-relative">
+    <section class="cta-section text-center py-5 theme-bg-light position-relative">
+	    <div class="container">
+			<h1>Featured Blog Post</h1>
+	    </div>
+    </section><!--//cta-section-->
+
+ <div class="page-content">
+	    <div class="container">
+		    <div class="docs-overview py-5">
+			    <div class="row justify-content-center">
+					{% for rec in post_list %}
+				    <div class="col-12 col-lg-4 py-3">
+					    <div class="card shadow-sm">
+						    <div class="card-body">
+							    <h5 class="card-title mb-3">
+									{% if rec.post_image %}
+									<img src="{{ rec.subject_icon }}"/>
+									{% else %}
+								    <span class="theme-icon-holder card-icon-holder me-2">
+								        <i class="fas fa-map-signs"></i>
+							        </span><!--//card-icon-holder-->
+									{% endif %}
+							        <span class="card-title-text">{{ rec.title }}</span>
+							    </h5>
+							    <div class="card-text">
+								    {{rec.summary | safe |slice:":100"}} <bold>........Read more</bold>
+							    </div>
+								 <a class="card-link-mask" href="weblog/{{ rec.slug}}"></a>
+						    </div><!--//card-body-->
+					    </div><!--//card-->
+				    </div><!--//col-->
+					{% endfor %}
+
+
+			    </div><!--//row-->
+		    </div><!--//container-->
+		</div><!--//container-->
+    </div><!--//page-content-->
+
+
+
+
+   <section class="cta-section text-center py-5 theme-bg-dark position-relative">
 	    <div class="theme-bg-shapes-right"></div>
 	    <div class="theme-bg-shapes-left"></div>
 	    <div class="container">

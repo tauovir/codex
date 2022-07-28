@@ -86,6 +86,7 @@ def __get_employement():
             project_set = {
                 "name": pro_obj.name,
                 "role_responsibility": pro_obj.role_responsibility,
+                "description": pro_obj.description,
                 "team_size": pro_obj.team_size,
                 "start_date": pro_obj.start_date,
                 "end_date": pro_obj.end_date,

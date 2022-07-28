@@ -80,7 +80,7 @@
 										{% for project in emp.project_set %}
 										<h4 class="resume-timeline-item-desc-heading font-weight-bold">Projects: {{project.name}}</h4>
 										<div class="resume-position-time">Project Duration: {{project.start_date |date:"M,Y"}} - {% if emp.is_current_org == 1%}- Present {% else %} {{project.end_date |date:"M,Y"}} {% endif %}</div>
-										<p>{{project.description}}</p>
+										<p>{{project.description | safe}}</p>
 										<h4 class="resume-timeline-item-desc-heading font-weight-bold">Role & Responsibilities:</h4>
 										<ul>
 										{% with project.role_responsibility|splitString:"#" as respo %}

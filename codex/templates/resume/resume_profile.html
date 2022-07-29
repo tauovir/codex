@@ -28,7 +28,7 @@
 					<div class="secondary-info ml-md-auto mt-2">
 						<ul class="resume-social list-unstyled">
 							{% for social in profile.data.social %}
-							<li class="mb-3"><a href="{{social.link}}" target="_blank"><span class="fa-container text-center mr-2"><i class="fab fa-linkedin-in fa-fw"></i></span>{{social.name}}</a></li>
+							<li class="mb-3"><a href="{{social.link}}" target="_blank"><span class="fa-container text-center mr-2"><i class="fab {{social.icon}} fa-fw"></i></span>{{social.name}}</a></li>
 							{% endfor %}
 
 						   <!--  <li class="mb-3"><a href="#"><span class="fa-container text-center mr-2"><i class="fab fa-codepen fa-fw"></i></span>codepen.io/username/</a></li>
@@ -71,15 +71,15 @@
 									<div class="resume-timeline-item-header mb-2">
 										<div class="d-flex flex-column flex-md-row">
 											<h3 class="resume-position-title font-weight-bold mb-1">{{emp.position}}</h3>
-											<div class="resume-company-name ml-auto">{{emp.employer}}</div>
+											<div class="resume-company-name ml-auto">{{emp.employer}} </div> <span class="resume-position-time">({{emp.location}})</span>
 										</div><!--//row-->
-										<div class="resume-position-time">{{emp.start_date |date:"Y"}} - {% if emp.is_current_org == 1%}- Present {% else %} {{emp.end_date |date:"Y"}} {% endif %}</div>
+										<div class="resume-position-time">{{emp.start_date |date:"M, Y"}} - {% if emp.is_current_org == 1%}- Present {% else %} {{emp.end_date |date:"M, Y"}} {% endif %}</div>
 									</div><!--//resume-timeline-item-header-->
 									<div class="resume-timeline-item-desc">
 										<p>{{emp.summary}}</p>
 										{% for project in emp.project_set %}
 										<h4 class="resume-timeline-item-desc-heading font-weight-bold">Project: {{project.name}}</h4>
-										<div class="resume-position-time ">Duration: {{project.start_date |date:"M,Y"}} - {% if emp.is_current_org == 1%}- Present {% else %} {{project.end_date |date:"M,Y"}} {% endif %}</div>
+										<div class="resume-position-time ">Duration: {{project.start_date |date:"M, Y"}} - {% if emp.is_current_org == 1%}- Present {% else %} {{project.end_date |date:"M, Y"}} {% endif %}</div>
 										<p>{{project.description | safe}}</p>
 										<h4 class="resume-timeline-item-desc-heading font-weight-bold">Role & Responsibilities:</h4>
 										<p>{{project.role_responsibility | safe}}</p>

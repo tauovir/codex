@@ -31,21 +31,21 @@ psql
 \password postgres
 ### Create Database
 CREATE DATABASE codebook_db;
-## Connect To database
+### Connect To database
 \c codebook_db
-## exit from plsq and restore project database
+### Exit from plsq and restore project database
 /usr/bin/pg_restore --host "localhost" --port "port" --username "<username>" --dbname "<database_name>" --verbose "database_name.sql"
 
 
-## #Install Tmux
+### Install Tmux
 sudo apt-get update
 sudo apt-get install tmux
 
-# Install NGINX
+### Install NGINX
 sudo apt update
 sudo apt install nginx
 cd /etc/nginx/sites-available
 ### Configure nginx file: check nginx file in this directory
   
-## Finnaly Runserver from codebook/codex
+### Finnaly Runserver from codebook/codex
   /home/ubuntu/codebook/venv/bin/gunicorn codex.wsgi:application --bind 0.0.0.0:8000 --workers 2

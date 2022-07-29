@@ -87,9 +87,9 @@ class Employment(models.Model):
 class Projects(models.Model):
     employment = models.ForeignKey(Employment, on_delete=models.CASCADE)
     name = models.CharField(max_length=120, null=False)  # max_length required
-    description = CKEditor5Field('Text', config_name='extends', default='')
+    description = CKEditor5Field('Description', config_name='extends', default='')
     # description = models.TextField(max_length=800, null=False)  # max_length required
-    role_responsibility = CKEditor5Field('Text', config_name='extends', default='')
+    role_responsibility = CKEditor5Field('Role_Responsibility', config_name='extends', default='')
     team_size = models.PositiveSmallIntegerField(default=0)
     start_date = models.DateField()
     end_date = models.DateField(blank=True, null=True)

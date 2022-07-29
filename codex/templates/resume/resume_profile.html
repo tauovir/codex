@@ -78,27 +78,15 @@
 									<div class="resume-timeline-item-desc">
 										<p>{{emp.summary}}</p>
 										{% for project in emp.project_set %}
-										<h4 class="resume-timeline-item-desc-heading font-weight-bold">Projects: {{project.name}}</h4>
-										<div class="resume-position-time">Project Duration: {{project.start_date |date:"M,Y"}} - {% if emp.is_current_org == 1%}- Present {% else %} {{project.end_date |date:"M,Y"}} {% endif %}</div>
+										<h4 class="resume-timeline-item-desc-heading font-weight-bold">Project: {{project.name}}</h4>
+										<div class="resume-position-time ">Duration: {{project.start_date |date:"M,Y"}} - {% if emp.is_current_org == 1%}- Present {% else %} {{project.end_date |date:"M,Y"}} {% endif %}</div>
 										<p>{{project.description | safe}}</p>
 										<h4 class="resume-timeline-item-desc-heading font-weight-bold">Role & Responsibilities:</h4>
-										<ul>
-										{% with project.role_responsibility|splitString:"#" as respo %}
-										{% for role in respo %}
-										<li>
-											{{ role }}<br>
-										</li>
-										{% endfor %}
-										{% endwith %}
-											<!-- <li>{{project.role_responsibility}}</li>
-											<li>Data collection, Extracting frames,Verifying data quality. </li>
-											<li>Analyzing the nature of data ,Finding data pattern & Feature engineering.</li>
-											<li>implementing APIs and collaborating with front-end team</li> -->
+										<p>{{project.role_responsibility | safe}}</p>
 
-										</ul>
 
 										{% if project.tech_stack %}
-										<h4 class="resume-timeline-item-desc-heading font-weight-bold">Technologies used:</h4>
+										<h4 class="resume-timeline-item-desc-heading font-weight-bold">Technology Stack:</h4>
 										<ul class="list-inline">
 											{% for tech in project.tech_stack.tech_stack %}
 											<li class="list-inline-item"><span class="badge badge-primary badge-pill">{{tech.name}}</span></li>

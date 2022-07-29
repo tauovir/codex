@@ -63,6 +63,9 @@ Connect to database:
 \c codebook_db
 detach from postgres teminal and restore database
 /usr/bin/pg_restore --host "localhost" --port "5432" --username "postgres" --dbname "codebook_db" --verbose "/home/ubuntu/codebook/db_backup/codex_final_db_01_july.sql"
+
+
+NOte: inorder to connect with serverdatabase need to enable port and set ip address
 ===================Postgres End=========================
 cd codebook
 virtualenv venv

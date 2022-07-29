@@ -6,7 +6,7 @@ Take database backup
 # Installation on Ubuntu Server:
 
 ### Clone Git repo and Update packages:
-mkdir codebook && cd codebook
+'mkdir codebook && cd codebook'
 git clone https://github.com/tauovir/codex.git .
 sudo apt-get update
 sudo apt-get install python3-pip

@@ -47,6 +47,22 @@ sudo apt install nginx
 cd /etc/nginx/sites-available
 Configure nginx file: check nginx file in this directory
 
+# ==================Inorder to get SSL certificate=================
+Download the Let’s Encrypt Client
+
+apt-get update
+sudo apt-get install certbot
+apt-get install python3-certbot-nginx
+nginx -t && nginx -s reload
+
+Obtain the SSL/TLS Certificate
+sudo certbot --nginx -d example.com -d www.example.com
+
+# To renew Certificate:
+/usr/bin/certbot renew --quiet
+===================SSL End================================
+
+
 # Stage-4: Install NGINX
 sudo apt-get update
 sudo apt-get install tmux
@@ -71,3 +87,5 @@ Run Server:
 web_access:
 user:taukir707
 pass : khan102030
+
+Dont forget to open 433 port in lightsail in case SSL

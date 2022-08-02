@@ -27,10 +27,16 @@ def index(request):
 
 def topic_detail(request, subject_slug, topic_slug):
     resp = []
+    page_title = ''
+    indx = 0
 
     sidebar = get_sidebar_list(subject_slug, topic_slug)
 
     for topic in Topics.objects.filter(slug=topic_slug, status=1, is_publish=True).all():
+        indx +=1
+        if indx == 1:
+            page_title = topic.name
+
         temp = {"topic": topic.name, "topic_id": "topic" + str(topic.id), "description": topic.description,
                 "section": []}
 
@@ -42,7 +48,7 @@ def topic_detail(request, subject_slug, topic_slug):
 
     _store_access_log(request, topic_slug)
 
-    return render(request, 'tutorials/topics_detail.html', {"records": resp, "sidebar": sidebar})
+    return render(request, 'tutorials/topics_detail.html', {"records": resp, "sidebar": sidebar,"page_title" : page_title})
 
 
 def _store_access_log(request, slug):

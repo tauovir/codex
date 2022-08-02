@@ -20,6 +20,10 @@ server {
 #===========
 sudo ln -s /etc/nginx/sites-available/codex_server /etc/nginx/sites-enabled/
 
+# unlink /etc/nginx/sites-enabled/filename
+
 sudo nginx -t
 sudo service nginx restart
 sudo service nginx reload
+
+sudo nginx -s reload
